@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  sample:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8080"
+    container_name: application
+    volumes:
+    - ./docker/app/logs:/logs/
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: ${v_jdbc_url}
+      SPRING_DATASOURCE_USERNAME: ${v_jdbc_user}
+      SPRING_DATASOURCE_PASSWORD: ${v_jdbc_pwd}
+    networks:
+      - m2p-network
+  postgres:
+    image: postgres:13.3-alpine
+    container_name: postgres
+    ports:
+      - "5438:5432"
+    volumes:
+      - ./docker/db/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${v_jdbc_db}
+      POSTGRES_USER: ${v_jdbc_user}
+      POSTGRES_PASSWORD: ${v_jdbc_pwd}
+    restart: always
+    networks:
+      - m2p-network
+networks:
+  m2p-network:
+    driver: bridge
