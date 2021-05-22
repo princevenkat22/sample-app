@@ -6,7 +6,6 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     url: ${SPRING_DATASOURCE_URL}
-    jdbcUrl: ${SPRING_DATASOURCE_URL}
     hikari:
       jdbc-url: ${SPRING_DATASOURCE_URL}
   datasource-h2:
@@ -38,7 +37,6 @@ logging:
   level:
     org.springframework: error
     org.hibernate: error
-    org.zalando: trace
     com.m2p: info
     org:
       hibernate:
@@ -52,17 +50,3 @@ server:
   servlet:
     context-path: /sample
   port: 8080
-logbook:
-  filter.enabled: true
-  secure-filter.enabled: true
-  format.style: json
-  strategy: default
-  obfuscate:
-    headers:
-      - Authorization
-      - X-API-KEY
-    parameters:
-      - access_token
-      - password
-  write:
-    chunk-size: 1000

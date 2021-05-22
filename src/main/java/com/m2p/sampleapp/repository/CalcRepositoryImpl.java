@@ -1,23 +1,24 @@
 package com.m2p.sampleapp.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-@Repository
+@Repository("CalcRepositoryImpl")
 public class CalcRepositoryImpl implements CalcRepository {
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    @Qualifier("h2-db")
+    private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
     public Double calcResult(Double inp1, char operator, Double inp2) {
         String sql = "SELECT ".concat(":inp1").concat(" ").concat(String.valueOf(operator)).concat(" ")
                 .concat(":inp2");
-        return (Double) entityManager
-                .createNativeQuery(sql)
-                .setParameter("inp1", inp1)
-                .setParameter("inp2", inp2)
-                .getSingleResult();
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("inp1", inp1)
+                .addValue("inp2", inp2);
+        return jdbcTemplate.queryForObject(sql, namedParameters, Double.class);
     }
 }
