@@ -1,5 +1,6 @@
 package com.m2p.sampleapp.repository;
 
+import com.m2p.sampleapp.util.TrackExecutionTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -13,6 +14,7 @@ public class CalcRepositoryImpl implements CalcRepository {
     @Qualifier("h2-db")
     private NamedParameterJdbcTemplate jdbcTemplate;
 
+    @TrackExecutionTime
     @Override
     public Double calcResult(Double inp1, char operator, Double inp2) {
         String sql = "SELECT ".concat(":inp1").concat(" ").concat(String.valueOf(operator)).concat(" ")

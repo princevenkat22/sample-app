@@ -18,7 +18,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
@@ -45,7 +45,7 @@ logging:
         type:
           descriptor:
             sql:
-              BasicBinder: TRACE
+              BasicBinder: info
   pattern:
     console: "%clr(%d{yy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-5p) %clr(%logger{0}){blue} %clr(%m){faint}%n"
 server:
@@ -66,3 +66,5 @@ logbook:
       - password
   write:
     chunk-size: 1000
+executiontime:
+  enabled: true

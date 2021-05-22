@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  sample:
+  application:
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,13 +8,20 @@ services:
       - "8888:8080"
     container_name: application
     volumes:
-    - ./docker/app/logs:/logs/
+      - ./docker/app/logs:/logs/
     depends_on:
-      - postgres
+      postgres:
+        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: ${v_jdbc_url}
       SPRING_DATASOURCE_USERNAME: ${v_jdbc_user}
       SPRING_DATASOURCE_PASSWORD: ${v_jdbc_pwd}
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8080/sample/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
     networks:
       - m2p-network
   postgres:
@@ -28,6 +35,11 @@ services:
       POSTGRES_DB: ${v_jdbc_db}
       POSTGRES_USER: ${v_jdbc_user}
       POSTGRES_PASSWORD: ${v_jdbc_pwd}
+    healthcheck:
+      test: pg_isready -d ${v_jdbc_db} -U ${v_jdbc_user}
+      interval: 1m
+      timeout: 10s
+      retries: 2
     restart: always
     networks:
       - m2p-network
