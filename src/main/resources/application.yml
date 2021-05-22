@@ -66,5 +66,7 @@ logbook:
       - password
   write:
     chunk-size: 1000
+  include:
+    - /sample/api/**
 executiontime:
   enabled: true

@@ -2,6 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <organization>
+        <name>M2P Solutions Pvt Ltd</name>
+        <url>https://m2pfintech.com/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>M2P075</id>
+            <name>Venkatesh Balaseharan</name>
+            <email>venkat@m2p.in</email>
+            <organization>M2P</organization>
+            <organizationUrl>https://m2pfintech.com/</organizationUrl>
+            <timezone>GMT+5:30</timezone>
+        </developer>
+    </developers>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -15,6 +30,7 @@
     <description>Sample Api For M2P</description>
     <properties>
         <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
@@ -99,10 +115,7 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>3.0.0</version>
         </dependency>
-
-
-    </dependencies>
-
+</dependencies>
     <build>
         <plugins>
             <plugin>
@@ -171,7 +184,5 @@
                 </executions>
             </plugin>
         </plugins>
-
     </build>
-
 </project>

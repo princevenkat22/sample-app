@@ -5,7 +5,6 @@ import com.m2p.sampleapp.dto.ResponseDto;
 import com.m2p.sampleapp.mapper.RequestMapper;
 import com.m2p.sampleapp.model.Request;
 import com.m2p.sampleapp.repository.MainRepository;
-import com.m2p.sampleapp.util.TrackExecutionTime;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class MainServiceImpl implements MainService {
         return new ResponseDto(request.getId(), result.getOutput(), result.getAson());
     }
 
-        private Request persist(Request request) {
+    private Request persist(Request request) {
         repository.save(request);
         log.info("Request saved with id - {}", request.getId());
         return request;
